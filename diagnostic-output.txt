@@ -1,44 +1,44 @@
 === Coles homepage ===
 URL: https://www.coles.com.au/
-HTTP 200 | 334729 bytes | 0.093003s
+HTTP 200 | 334729 bytes | 0.055588s
 --- response headers (first 8) ---
 HTTP/2 200 
-etag: "5iiov02zjp763h"
+etag: "1ihqzxq2dv763h"
 content-type: text/html; charset=utf-8
 content-length: 334729
 cache-control: max-age=60
-date: Sun, 17 May 2026 07:09:51 GMT
-set-cookie: visid_incap_2800108=gmtUTqmTRoOCqB/UOjTEc79pCWoAAAAAQUIPAAAAAABsSZunpI2wj/FI7GY6Gsq/; expires=Mon, 17 May 2027 06:40:13 GMT; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
-set-cookie: incap_ses_1427_2800108=Ji8EFPtHdE1Sv26IhbnNE79pCWoAAAAAF5WwNPNdmHDiMCREHWNKCg==; path=/; Domain=.coles.com.au; Secure; SameSite=None
+date: Sun, 17 May 2026 07:13:37 GMT
+set-cookie: visid_incap_2800108=Jky9GlLKS5aG871+7l9BBqFqCWoAAAAAQUIPAAAAAADU6hA5qp6xDfNZ2K09Noxn; expires=Sun, 16 May 2027 12:07:58 GMT; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
+set-cookie: incap_ses_1841_2800108=QA8dZNl+BDXP6X0mfoyMGaFqCWoAAAAAf2Y1UrnPptLwnDGY6sqByw==; path=/; Domain=.coles.com.au; Secure; SameSite=None
 --- body (first 400 chars) ---
 <!DOCTYPE html><html lang="en"><head><script src="/ewelcome-awakes-flowes-that-La-Warry-ares-Like-n" async></script><meta charSet="utf-8" data-next-head=""/><link rel="preload" href="/fonts/source-sans-pro/SourceSansPro-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-head=""/><link rel="preload" href="/fonts/itc-avant-garde-gothic/AvantGardeGothicITCW05-Demi.woff2" as=
 
 === Coles API (bff) ===
 URL: https://www.coles.com.au/api/bff/products?categoryId=fruit-vegetables&pageSize=10
-HTTP 404 | 54 bytes | 0.322350s
+HTTP 404 | 54 bytes | 0.247648s
 --- response headers (first 8) ---
 HTTP/2 404 
-date: Sun, 17 May 2026 07:09:52 GMT
+date: Sun, 17 May 2026 07:13:38 GMT
 content-type: application/json
 content-length: 54
 request-context: appId=cid-v1:5b6c59d8-740f-43bc-92e6-26063a9e643d
-set-cookie: nlbi_2800108_3037207=uIbobcM3qyBmedmJQME8pAAAAADtcXlsdnZq99sVenp6CAl4; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
-set-cookie: visid_incap_2800108=gmtUTqmTRoOCqB/UOjTEc79pCWoAAAAAQUIPAAAAAABsSZunpI2wj/FI7GY6Gsq/; expires=Mon, 17 May 2027 06:40:13 GMT; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
-set-cookie: incap_ses_1427_2800108=UZggXvekyi5Sv26IhbnNE8BpCWoAAAAA8gwxTQGFvpuVWqrgX+sxZg==; path=/; Domain=.coles.com.au; Secure; SameSite=None
+set-cookie: nlbi_2800108_3037207=9NrRMGZnq0JSrbqXQME8pAAAAABEpI+bHG/4Hro72sBeCH7L; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
+set-cookie: visid_incap_2800108=Jky9GlLKS5aG871+7l9BBqFqCWoAAAAAQUIPAAAAAADU6hA5qp6xDfNZ2K09Noxn; expires=Sun, 16 May 2027 12:07:58 GMT; HttpOnly; path=/; Domain=.coles.com.au; Secure; SameSite=None
+set-cookie: incap_ses_1841_2800108=kMMldxfJUBXP6X0mfoyMGaFqCWoAAAAAsg5BTIebyxAaGHi1X6UjpA==; path=/; Domain=.coles.com.au; Secure; SameSite=None
 --- body (first 400 chars) ---
 { "statusCode": 404, "message": "Resource not found" }
 
 === Woolies homepage ===
 URL: https://www.woolworths.com.au/
-HTTP 403 | 379 bytes | 0.104175s
+HTTP 403 | 379 bytes | 0.078916s
 --- response headers (first 8) ---
 HTTP/2 403 
 mime-version: 1.0
 content-type: text/html
 content-length: 379
-expires: Sun, 17 May 2026 07:09:52 GMT
-date: Sun, 17 May 2026 07:09:52 GMT
-set-cookie: AKA_A2=A; expires=Sun, 17-May-2026 08:09:52 GMT; path=/; domain=woolworths.com.au; secure; HttpOnly
+expires: Sun, 17 May 2026 07:13:38 GMT
+date: Sun, 17 May 2026 07:13:38 GMT
+set-cookie: AKA_A2=A; expires=Sun, 17-May-2026 08:13:38 GMT; path=/; domain=woolworths.com.au; secure; HttpOnly
 server-timing: cdn-cache; desc=HIT
 --- body (first 400 chars) ---
 <HTML><HEAD>
@@ -47,23 +47,23 @@ server-timing: cdn-cache; desc=HIT
 <H1>Access Denied</H1>
  
 You don't have permission to access "http&#58;&#47;&#47;www&#46;woolworths&#46;com&#46;au&#47;" on this server.<P>
-Reference&#32;&#35;18&#46;7118d017&#46;1779001792&#46;ff2f6bcd
-<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;7118d017&#46;1779001792&#46;ff2f6bcd</P>
+Reference&#32;&#35;18&#46;8a89cc17&#46;1779002018&#46;61fc32d1
+<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8a89cc17&#46;1779002018&#46;61fc32d1</P>
 </BODY>
 </HTML>
 
 
 === Woolies category ===
 URL: https://www.woolworths.com.au/apis/ui/browse/category?categoryId=1_E5BEE36E&pageNumber=1&pageSize=12&sortType=TraderRelevance
-HTTP 403 | 419 bytes | 0.053119s
+HTTP 403 | 419 bytes | 0.140263s
 --- response headers (first 8) ---
 HTTP/2 403 
 mime-version: 1.0
 content-type: text/html
 content-length: 419
-expires: Sun, 17 May 2026 07:09:52 GMT
-date: Sun, 17 May 2026 07:09:52 GMT
-set-cookie: AKA_A2=A; expires=Sun, 17-May-2026 08:09:52 GMT; path=/; domain=woolworths.com.au; secure; HttpOnly
+expires: Sun, 17 May 2026 07:13:38 GMT
+date: Sun, 17 May 2026 07:13:38 GMT
+set-cookie: AKA_A2=A; expires=Sun, 17-May-2026 08:13:38 GMT; path=/; domain=woolworths.com.au; secure; HttpOnly
 server-timing: cdn-cache; desc=HIT
 --- body (first 400 chars) ---
 <HTML><HEAD>
@@ -72,31 +72,31 @@ server-timing: cdn-cache; desc=HIT
 <H1>Access Denied</H1>
  
 You don't have permission to access "http&#58;&#47;&#47;www&#46;woolworths&#46;com&#46;au&#47;apis&#47;ui&#47;browse&#47;category&#63;" on this server.<P>
-Reference&#32;&#35;18&#46;7118d017&#46;1779001792&#46;ff2f6daa
-<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;7118d017&#46;1779001792&#46;ff2f6daa</
+Reference&#32;&#35;18&#46;8a89cc17&#46;1779002018&#46;61fc33d1
+<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8a89cc17&#46;1779002018&#46;61fc33d1</
 
 === AEMO summary ===
 URL: https://visualisations.aemo.com.au/aemo/apps/api/report/ELEC_NEM_SUMMARY
-HTTP 200 | 10744 bytes | 0.829946s
+HTTP 200 | 10744 bytes | 1.285702s
 --- response headers (first 8) ---
 HTTP/1.1 200 OK
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
 Access-Control-Allow-Methods: POST,GET,OPTIONS,PUT,DELETE
 Access-Control-Allow-Origin: *
-Cache-Control: public, max-age=8
+Cache-Control: public, max-age=18
 Content-Type: application/json; charset=utf-8
-Date: Sun, 17 May 2026 07:09:52 GMT
-Expires: Sun, 17 May 2026 07:10:01 GMT
+Date: Sun, 17 May 2026 07:13:39 GMT
+Expires: Sun, 17 May 2026 07:13:57 GMT
 --- body (first 400 chars) ---
-{"ELEC_NEM_SUMMARY":[{"SETTLEMENTDATE":"2026-05-17T17:10:00","REGIONID":"NSW1","PRICE":180.36711,"PRICE_STATUS":"FIRM","APCFLAG":0.0,"MARKETSUSPENDEDFLAG":0.0,"TOTALDEMAND":8634.41000,"NETINTERCHANGE":-1020.83000,"SCHEDULEDGENERATION":7441.41591,"SEMISCHEDULEDGENERATION":148.68409,"INTERCONNECTORFLOWS":"[{\"name\":\"N-Q-MNSP1\", \"value\":-9.00000, \"exportlimit\":69.60010, \"importlimit\":-90.399
+{"ELEC_NEM_SUMMARY":[{"SETTLEMENTDATE":"2026-05-17T17:15:00","REGIONID":"NSW1","PRICE":180.60157,"PRICE_STATUS":"FIRM","APCFLAG":0.0,"MARKETSUSPENDEDFLAG":0.0,"TOTALDEMAND":8707.18000,"NETINTERCHANGE":-1051.48000,"SCHEDULEDGENERATION":7467.80810,"SEMISCHEDULEDGENERATION":162.33190,"INTERCONNECTORFLOWS":"[{\"name\":\"N-Q-MNSP1\", \"value\":-5.21862, \"exportlimit\":66.32600, \"importlimit\":-90.499
 
 === ABS CPI monthly ===
 URL: https://api.data.abs.gov.au/data/CPI_M/1.0.0.1.50.10.M?startPeriod=2025-06
-HTTP 301 | 134 bytes | 0.786668s
+HTTP 301 | 134 bytes | 1.173181s
 --- response headers (first 8) ---
 HTTP/2 301 
 server: awselb/2.0
-date: Sun, 17 May 2026 07:09:53 GMT
+date: Sun, 17 May 2026 07:13:40 GMT
 content-type: text/html
 content-length: 134
 location: https://data.api.abs.gov.au:443/rest/data/CPI_M/1.0.0.1.50.10.M?startPeriod=2025-06
@@ -111,30 +111,55 @@ location: https://data.api.abs.gov.au:443/rest/data/CPI_M/1.0.0.1.50.10.M?startP
 
 
 === RBA cash-rate CSV ===
-URL: https://www.rba.gov.au/statistics/tables/csv/a2-0-01.csv
-HTTP 404 | 18107 bytes | 0.653442s
+URL: https://www.rba.gov.au/statistics/tables/csv/a2-data.csv
+HTTP 200 | 5506 bytes | 0.601005s
 --- response headers (first 8) ---
-HTTP/2 404 
+HTTP/2 200 
 server: Apache
 x-frame-options: SAMEORIGIN
+last-modified: Tue, 05 May 2026 05:12:02 GMT
 accept-ranges: bytes
-responsetime: D=838
-x-ua-compatible: IE=Edge
-x-xss-protection: 1; mode=block
-content-type: text/html; charset=UTF-8
+content-length: 5506
+cache-control: max-age=30
+expires: Sun, 17 May 2026 07:14:11 GMT
 --- body (first 400 chars) ---
+﻿A2 RESERVE BANK OF AUSTRALIA – CHANGES IN MONETARY POLICY AND ADMINISTERED RATES
+Title,Change in Cash Rate Target,New Cash Rate Target,Change in ES Rate,New ES Rate,Change in Overnight Repo Rate,New Overnight Repo Rate
+Description,Change in Cash Rate Target (in percentage points),The Cash Rate Target As Announced,Change in Rate Paid on Exchange Settlement Balances (in percentage points),The
 
-<!DOCTYPE html>
-<html lang="en-au" xml:lang="en-au" xmlns="http://www.w3.org/1999/xhtml" class="no-js">
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta charset="utf-8" />
+=== RBA CSV first 25 lines ===
+﻿A2 RESERVE BANK OF AUSTRALIA – CHANGES IN MONETARY POLICY AND ADMINISTERED RATES
+Title,Change in Cash Rate Target,New Cash Rate Target,Change in ES Rate,New ES Rate,Change in Overnight Repo Rate,New Overnight Repo Rate
+Description,Change in Cash Rate Target (in percentage points),The Cash Rate Target As Announced,Change in Rate Paid on Exchange Settlement Balances (in percentage points),The New Rate Paid on Exchange Settlement Balances,Change in Pricing Rate on RBA Overnight Standing Facility Repos (in percentage points),The New Pricing Rate on RBA Overnight Standing Facility Repos
+Frequency,As announced,As announced,As announced,As announced,As announced,As announced
+Type,Original,Original,Original,Original,Original,Original
+Units,Per cent,Per cent,Per cent,Per cent,Per cent,Per cent
 
 
-	<script src="/assets/js/rba.external.min.js"></script>
-	<!-- Google Tag Manager -->
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-			new Date().getTime(),event:'gtm.js'}
+Source,RBA,RBA,RBA,RBA,RBA,RBA
+Publication date,05-May-2026,05-May-2026,05-May-2026,05-May-2026,05-May-2026,05-May-2026
+Series ID,ARBAMPCCCR,ARBAMPCNCRT,ARBAMPCRPESB,ARBAMPNRPESB,ARBAMPCORR,ARBAMPNORR
+23-Jan-1990,-0.50 to -1.00,17.00 to 17.50
+15-Feb-1990,-0.50,16.50 to 17.00
+04-Apr-1990,-1.00 to -1.50,15.00 to 15.50
+02-Aug-1990,-1.00,14.00
+15-Oct-1990,-1.00,13.00
+18-Dec-1990,-1.00,12.00
+04-Apr-1991,-0.50,11.50
+16-May-1991,-1.00,10.50
+03-Sep-1991,-1.00,9.50
+06-Nov-1991,-1.00,8.50
+08-Jan-1992,-1.00,7.50
+06-May-1992,-1.00,6.50
+08-Jul-1992,-0.75,5.75
+23-Mar-1993,-0.50,5.25
+
+=== RBA CSV last 5 lines ===
+
+
+
+
+
 
 --- runner IP ---
-135.232.201.66
+40.76.191.167
