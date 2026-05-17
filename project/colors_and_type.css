@@ -1,0 +1,193 @@
+/* ========================================================
+   MonsterraCapital — colors_and_type.css
+   Base tokens + semantic mappings (fg1, fg2, h1, body, etc).
+   
+   Pairs with brand.css — load this AFTER brand.css when both
+   are used, so semantic vars resolve against the base tokens.
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ─────── BASE COLOR TOKENS (the raw palette) ─────── */
+  /* Capital — the brand colour scale (11 steps) */
+  --capital-50:  #E6EEFF;
+  --capital-100: #B8D1FF;
+  --capital-200: #8AB3FF;
+  --capital-300: #5C95FF;
+  --capital-400: #2E77FF;
+  --capital-500: #0059FF;   /* HERO — eyebrow, link, stat, mark */
+  --capital-600: #0050E3;   /* hover for primary buttons/links */
+  --capital-700: #0039A3;   /* AA-safe link colour at body sizes */
+  --capital-800: #002975;
+  --capital-900: #001947;
+  --capital-950: #00091A;   /* INK — body, headlines, dark surface */
+
+  /* Slate — cool neutrals (hairlines, dividers, secondary text) */
+  --slate-50:  #F7F8FB;
+  --slate-100: #F0F2F7;
+  --slate-200: #E1E4EE;
+  --slate-400: #9BA3BD;
+  --slate-600: #4F5878;
+  --slate-800: #1E2438;
+
+  /* Bone — warm paper, the document substrate */
+  --bone-50:  #FCFBF6;   /* default page background */
+  --bone-100: #F6F3EB;   /* recessed surfaces, cards on Bone */
+  --bone-200: #EBE6D8;   /* dividers on Bone */
+
+  /* Semantic / signal — restrained, status only */
+  --success: #16A373;
+  --warn:    #E89B1F;
+  --danger:  #E04545;
+  --info:    #4BB8F0;
+
+  --white: #FFFFFF;
+
+  /* ─────── SEMANTIC COLOR MAPPINGS (use these in product code) ─────── */
+  /* Surfaces */
+  --bg:           var(--bone-50);     /* page background — warm paper */
+  --bg-elevated:  var(--white);       /* cards, modals, table rows */
+  --bg-recessed:  var(--bone-100);    /* alt sections, recessed surfaces */
+  --bg-callout:   var(--capital-50);  /* highlighted insight backgrounds */
+  --bg-inverse:   var(--capital-950); /* dark surface, position blocks */
+
+  /* Foregrounds */
+  --fg1:  var(--capital-950);  /* body type, headlines on light */
+  --fg2:  var(--slate-600);    /* captions, secondary text, meta */
+  --fg3:  var(--slate-400);    /* tertiary text, footer chrome */
+  --fg-on-dark:    var(--bone-50);
+  --fg-on-dark-2:  var(--capital-100);
+  --fg-on-dark-3:  var(--capital-300);
+
+  /* Brand accents */
+  --accent:        var(--capital-500); /* hero — eyebrow, stat, rule */
+  --accent-hover:  var(--capital-600);
+  --accent-active: var(--capital-700);
+
+  /* Borders / hairlines */
+  --border-hairline:  var(--slate-200);  /* dividers, table rows */
+  --border-strong:    var(--capital-950); /* table caps, hard rules */
+  --border-on-dark:   rgba(255, 255, 255, 0.10);
+
+  /* Link colour (AA-safe at body sizes) */
+  --link:        var(--capital-700);
+  --link-hover:  var(--capital-500);
+
+  /* ─────── FONT FAMILIES ─────── */
+  --font-head:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body:    'Nunito Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  /* Aliases for design-system consumers */
+  --serif-display: var(--font-head);   /* not actually serif — kept for API */
+  --sans-display:  var(--font-head);
+  --sans-body:     var(--font-body);
+  --code:          var(--font-mono);
+
+  /* ─────── TYPE SCALE (fluid, clamp-based) ─────── */
+  --fs-display-xl: clamp(48px, 9vw, 128px);
+  --fs-display-l:  clamp(36px, 5.5vw, 72px);
+  --fs-display-m:  clamp(28px, 4vw, 52px);
+  --fs-headline-l: clamp(22px, 2.5vw, 34px);
+  --fs-headline-m: clamp(18px, 1.8vw, 24px);
+  --fs-headline-s: clamp(16px, 1.4vw, 20px);
+  --fs-body-l:     clamp(17px, 1.5vw, 19px);
+  --fs-body-m:     clamp(15px, 1.2vw, 17px);
+  --fs-body-s:     14px;
+  --fs-caption:    12px;
+  --fs-eyebrow:    11px;
+
+  /* ─────── SPACING (4-based) ─────── */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 32px;
+  --s-6: 48px;
+  --s-7: 64px;
+  --s-8: 96px;
+
+  /* ─────── RADIUS — restrained, not pillowy ─────── */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:  14px;
+  --r-pill: 999px;
+
+  /* ─────── SHADOWS — institutional restraint ─────── */
+  /* Used sparingly — Monsterra prefers hairlines over shadows for hierarchy */
+  --shadow-1: 0 1px 0 rgba(0, 9, 26, 0.04);                      /* subtle lift */
+  --shadow-2: 0 2px 8px rgba(0, 9, 26, 0.06);                    /* card hover */
+  --shadow-3: 0 12px 32px rgba(0, 9, 26, 0.10);                  /* modal */
+  --shadow-inset: inset 0 0 0 1px var(--slate-200);              /* card border */
+}
+
+/* ─────── SEMANTIC TYPE STYLES (HTML element defaults) ─────── */
+/* Opt-in by adding class="ds-prose" to a container, OR rely on the
+   .display-*/.headline-*/.body-* classes from brand.css directly. */
+
+.ds-prose {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-m);
+  line-height: 1.65;
+  color: var(--fg1);
+}
+
+.ds-prose h1, h1.ds {
+  font: 900 var(--fs-display-l)/1.0 var(--font-head);
+  letter-spacing: -0.035em;
+  color: var(--fg1);
+  margin: 0 0 var(--s-4);
+}
+.ds-prose h2, h2.ds {
+  font: 800 var(--fs-display-m)/1.05 var(--font-head);
+  letter-spacing: -0.03em;
+  color: var(--fg1);
+  margin: var(--s-7) 0 var(--s-3);
+}
+.ds-prose h3, h3.ds {
+  font: 800 var(--fs-headline-l)/1.15 var(--font-head);
+  letter-spacing: -0.025em;
+  color: var(--fg1);
+  margin: var(--s-6) 0 var(--s-3);
+}
+.ds-prose h4, h4.ds {
+  font: 700 var(--fs-headline-m)/1.25 var(--font-head);
+  letter-spacing: -0.02em;
+  color: var(--fg1);
+  margin: var(--s-5) 0 var(--s-2);
+}
+.ds-prose p, p.ds {
+  font: 400 var(--fs-body-m)/1.65 var(--font-body);
+  color: var(--fg1);
+  max-width: 72ch;
+  margin: 0 0 var(--s-3);
+}
+.ds-prose small, small.ds, .caption.ds {
+  font: 500 var(--fs-caption)/1.4 var(--font-body);
+  color: var(--fg2);
+}
+.ds-prose code, code.ds, .mono.ds {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92em;
+}
+.ds-prose a, a.ds {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.ds-prose a:hover, a.ds:hover { color: var(--link-hover); }
+
+/* The eyebrow — the brand's signature label */
+.eyebrow.ds {
+  font: 500 var(--fs-eyebrow)/1 var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+/* Tabular numbers — for tables and stat blocks */
+.tnum { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
