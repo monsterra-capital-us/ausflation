@@ -36,7 +36,14 @@ jobs:
           probe "Woolies category"   "https://www.woolworths.com.au/apis/ui/browse/category?categoryId=1_E5BEE36E&pageNumber=1&pageSize=12&sortType=TraderRelevance" "https://www.woolworths.com.au/shop/browse/fruit-veg"
           probe "AEMO summary"       "https://visualisations.aemo.com.au/aemo/apps/api/report/ELEC_NEM_SUMMARY"  "https://aemo.com.au/"
           probe "ABS CPI monthly"    "https://api.data.abs.gov.au/data/CPI_M/1.0.0.1.50.10.M?startPeriod=2025-06"  "https://www.abs.gov.au/"
-          probe "RBA cash-rate CSV"  "https://www.rba.gov.au/statistics/tables/csv/a2-0-01.csv" "https://www.rba.gov.au/"
+          probe "RBA cash-rate CSV"  "https://www.rba.gov.au/statistics/tables/csv/a2-data.csv" "https://www.rba.gov.au/"
+          # Capture first 25 lines of the RBA CSV so we can see column structure
+          echo "=== RBA CSV first 25 lines ===" >> $REPORT
+          curl -s -A "$UA" "https://www.rba.gov.au/statistics/tables/csv/a2-data.csv" | head -25 >> $REPORT
+          echo "" >> $REPORT
+          echo "=== RBA CSV last 5 lines ===" >> $REPORT
+          curl -s -A "$UA" "https://www.rba.gov.au/statistics/tables/csv/a2-data.csv" | tail -5 >> $REPORT
+          echo "" >> $REPORT
           echo "--- runner IP ---" >> $REPORT
           curl -s https://api.ipify.org >> $REPORT
           echo "" >> $REPORT
