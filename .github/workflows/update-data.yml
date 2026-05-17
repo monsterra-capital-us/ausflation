@@ -1,0 +1,43 @@
+name: Update Ausflation data
+
+on:
+  schedule:
+    # 09:05 AEST every day (23:05 UTC, accounting for AEST = UTC+10)
+    - cron: "5 23 * * *"
+  workflow_dispatch:   # allow manual trigger from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch live data and patch index.html
+        env:
+          # Optional: add this secret in repo Settings → Secrets → Actions
+          # to enable the FuelCheck NSW feed.
+          FUELCHECK_API_KEY: ${{ secrets.FUELCHECK_API_KEY }}
+        run: python scripts/fetch_data.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet index.html || (
+            git add index.html &&
+            git commit -m "data: daily update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          )
+
+      - name: Push
+        run: git push origin HEAD
