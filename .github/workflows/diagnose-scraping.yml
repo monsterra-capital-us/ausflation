@@ -2,38 +2,49 @@ name: Diagnose retail scraping
 
 on: workflow_dispatch
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Coles homepage
-        run: |
-          echo "=== Coles homepage ==="
-          curl -sI -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
-            https://www.coles.com.au/ | head -10 || true
+      - uses: actions/checkout@v4
 
-      - name: Test Coles API
+      - name: Probe targets and write report
         run: |
-          echo "=== Coles API ==="
-          curl -s -o /tmp/c.json -w "HTTP %{http_code} | %{size_download} bytes\n" \
-            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
-            -H "Referer: https://www.coles.com.au/browse/fruit-vegetables" \
-            -H "Accept: application/json" \
-            "https://www.coles.com.au/api/bff/products?categoryId=fruit-vegetables&pageSize=10"
-          head -c 500 /tmp/c.json; echo
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+          REPORT=diagnostic-output.txt
+          : > $REPORT
+          probe() {
+            local label="$1" url="$2" referer="$3"
+            echo "=== $label ===" >> $REPORT
+            echo "URL: $url" >> $REPORT
+            curl -s -o /tmp/body -D /tmp/hdrs -w "HTTP %{http_code} | %{size_download} bytes | %{time_total}s\n" \
+              -A "$UA" -H "Referer: $referer" -H "Accept: application/json,text/html" \
+              "$url" >> $REPORT
+            echo "--- response headers (first 8) ---" >> $REPORT
+            head -8 /tmp/hdrs >> $REPORT
+            echo "--- body (first 400 chars) ---" >> $REPORT
+            head -c 400 /tmp/body >> $REPORT
+            echo "" >> $REPORT
+            echo "" >> $REPORT
+          }
+          probe "Coles homepage"     "https://www.coles.com.au/"  "https://www.google.com/"
+          probe "Coles API (bff)"    "https://www.coles.com.au/api/bff/products?categoryId=fruit-vegetables&pageSize=10"  "https://www.coles.com.au/browse/fruit-vegetables"
+          probe "Woolies homepage"   "https://www.woolworths.com.au/" "https://www.google.com/"
+          probe "Woolies category"   "https://www.woolworths.com.au/apis/ui/browse/category?categoryId=1_E5BEE36E&pageNumber=1&pageSize=12&sortType=TraderRelevance" "https://www.woolworths.com.au/shop/browse/fruit-veg"
+          probe "AEMO summary"       "https://visualisations.aemo.com.au/aemo/apps/api/report/ELEC_NEM_SUMMARY"  "https://aemo.com.au/"
+          probe "ABS CPI monthly"    "https://api.data.abs.gov.au/data/CPI_M/1.0.0.1.50.10.M?startPeriod=2025-06"  "https://www.abs.gov.au/"
+          probe "RBA cash-rate CSV"  "https://www.rba.gov.au/statistics/tables/csv/a2-0-01.csv" "https://www.rba.gov.au/"
+          echo "--- runner IP ---" >> $REPORT
+          curl -s https://api.ipify.org >> $REPORT
+          echo "" >> $REPORT
 
-      - name: Test Woolworths homepage
+      - name: Commit report
         run: |
-          echo "=== Woolworths homepage ==="
-          curl -sI -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
-            https://www.woolworths.com.au/ | head -10 || true
-
-      - name: Test Woolworths API
-        run: |
-          echo "=== Woolworths API ==="
-          curl -s -o /tmp/w.json -w "HTTP %{http_code} | %{size_download} bytes\n" \
-            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
-            -H "Referer: https://www.woolworths.com.au/shop/browse/fruit-veg" \
-            -H "Accept: application/json" \
-            "https://www.woolworths.com.au/apis/ui/browse/category?categoryId=1_E5BEE36E&pageNumber=1&pageSize=12&sortType=TraderRelevance"
-          head -c 500 /tmp/w.json; echo
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add diagnostic-output.txt
+          git commit -m "diag: probe retail scraping from runner"
+          git push origin HEAD
