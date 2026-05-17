@@ -65,16 +65,16 @@ def fmt_aest():
 
 
 # ─── ABS CPI ──────────────────────────────────────────────────────────────────
+# Host is now data.api.abs.gov.au (api.data.abs.gov.au redirects to this).
 # SDMX-JSON: monthly CPI indicator (all groups, Australia)
-# Series key: CPI_M / measure=1 / freq=M / region=50 / base=10
 ABS_CPI_URL = (
-    "https://api.data.abs.gov.au/data/CPI_M/1.0.0.1.50.10.M"
+    "https://data.api.abs.gov.au/rest/data/CPI_M/1.0.0.1.50.10.M"
     "?startPeriod=2023-06&detail=Full"
 )
 
-# SDMX-JSON: quarterly CPI by expenditure class (Table 8)
+# SDMX-JSON: quarterly CPI by expenditure class
 ABS_CPI_GROUPS_URL = (
-    "https://api.data.abs.gov.au/data/CPI/1.0.0.20006.10.50.Q"
+    "https://data.api.abs.gov.au/rest/data/CPI/1.0.0.20006.10.50.Q"
     "?startPeriod=2023-Q2&detail=Full"
 )
 
@@ -138,9 +138,12 @@ def abs_yoy(index_series):
     return yoy
 
 
+ABS_HEADERS = {"Accept": "application/vnd.sdmx.data+json;version=1.0.0-wd"}
+
+
 def fetch_abs_monthly_cpi():
     """Returns list of (date, yoy_pct) sorted oldest-first for the monthly CPI indicator."""
-    data = fetch_json(ABS_CPI_URL)
+    data = fetch_json(ABS_CPI_URL, extra_headers=ABS_HEADERS)
     if not data:
         return None
     index_map = parse_sdmx_series(data)
@@ -154,7 +157,7 @@ def fetch_abs_group_cpi():
     Returns {category_id: latest_yoy_pct} for each of the 11 ABS groups.
     Uses quarterly data (the most complete group breakdown).
     """
-    data = fetch_json(ABS_CPI_GROUPS_URL)
+    data = fetch_json(ABS_CPI_GROUPS_URL, extra_headers=ABS_HEADERS)
     if not data:
         return {}
 
@@ -204,8 +207,8 @@ def fetch_abs_group_cpi():
 
 
 # ─── RBA cash rate ────────────────────────────────────────────────────────────
-# Official table A2: historical cash rate decisions.
-RBA_CSV_URL = "https://www.rba.gov.au/statistics/tables/csv/a2-0-01.csv"
+# Official table A2 — historical cash rate decisions.
+RBA_CSV_URL = "https://www.rba.gov.au/statistics/tables/csv/a2-data.csv"
 
 
 def fetch_rba_cash_rate():
@@ -278,23 +281,23 @@ AEMO_URL = "https://visualisations.aemo.com.au/aemo/apps/api/report/ELEC_NEM_SUM
 
 
 def fetch_aemo_price():
-    """Returns current NEM spot price in $/MWh (national average), or None."""
+    """
+    Returns current NEM spot price in $/MWh (5-state average), or None.
+    Live response shape: {"ELEC_NEM_SUMMARY":[{"REGIONID":"NSW1","PRICE":180.36,...}, ...]}
+    """
     data = fetch_json(AEMO_URL, timeout=15)
     if not data:
         return None
     try:
-        # Response structure varies; try common shapes
-        if isinstance(data, list):
-            prices = [r.get("SETTLEMENTDATE") and r.get("RRP") for r in data if r.get("RRP")]
-            if prices:
-                return statistics.mean([r["RRP"] for r in data if r.get("RRP")])
-        if isinstance(data, dict):
-            for key in ("ELEC_NEM_SUMMARY", "data", "items"):
-                if key in data and isinstance(data[key], list):
-                    vals = [r.get("RRP", r.get("price")) for r in data[key] if r.get("RRP") or r.get("price")]
-                    numeric = [v for v in vals if isinstance(v, (int, float))]
-                    if numeric:
-                        return statistics.mean(numeric)
+        rows = (data.get("ELEC_NEM_SUMMARY")
+                or data.get("data")
+                or (data if isinstance(data, list) else []))
+        prices = []
+        for r in rows:
+            v = r.get("PRICE") or r.get("RRP") or r.get("price")
+            if isinstance(v, (int, float)):
+                prices.append(float(v))
+        return round(statistics.mean(prices), 2) if prices else None
     except Exception as e:
         print(f"  WARN AEMO parse: {e}", file=sys.stderr)
     return None
