@@ -1,0 +1,39 @@
+name: Diagnose retail scraping
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Coles homepage
+        run: |
+          echo "=== Coles homepage ==="
+          curl -sI -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
+            https://www.coles.com.au/ | head -10 || true
+
+      - name: Test Coles API
+        run: |
+          echo "=== Coles API ==="
+          curl -s -o /tmp/c.json -w "HTTP %{http_code} | %{size_download} bytes\n" \
+            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
+            -H "Referer: https://www.coles.com.au/browse/fruit-vegetables" \
+            -H "Accept: application/json" \
+            "https://www.coles.com.au/api/bff/products?categoryId=fruit-vegetables&pageSize=10"
+          head -c 500 /tmp/c.json; echo
+
+      - name: Test Woolworths homepage
+        run: |
+          echo "=== Woolworths homepage ==="
+          curl -sI -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
+            https://www.woolworths.com.au/ | head -10 || true
+
+      - name: Test Woolworths API
+        run: |
+          echo "=== Woolworths API ==="
+          curl -s -o /tmp/w.json -w "HTTP %{http_code} | %{size_download} bytes\n" \
+            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
+            -H "Referer: https://www.woolworths.com.au/shop/browse/fruit-veg" \
+            -H "Accept: application/json" \
+            "https://www.woolworths.com.au/apis/ui/browse/category?categoryId=1_E5BEE36E&pageNumber=1&pageSize=12&sortType=TraderRelevance"
+          head -c 500 /tmp/w.json; echo
