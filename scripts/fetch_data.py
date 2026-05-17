@@ -213,33 +213,45 @@ RBA_CSV_URL = "https://www.rba.gov.au/statistics/tables/csv/a2-data.csv"
 
 def fetch_rba_cash_rate():
     """
-    Returns (current_rate_float, {YYYY-MM: rate_float}) by reading the RBA A2 table.
-    The CSV has columns: Date, Rate (%). Rows are individual decisions.
+    Returns (current_rate_float, {YYYY-MM: rate_float}) from RBA Table A2.
+    CSV columns: Date, Change in Cash Rate Target, NEW Cash Rate Target, ...
+    Old rows have ranges like "17.00 to 17.50" - we take the upper value.
+    Modern rows are a single value (e.g. "4.35").
     """
     raw = fetch(RBA_CSV_URL)
     if not raw:
         return None, {}
 
+    def parse_rate_cell(cell):
+        cell = cell.strip().replace("%", "")
+        if not cell:
+            return None
+        if " to " in cell:
+            cell = cell.split(" to ")[-1]
+        try:
+            return float(cell)
+        except ValueError:
+            return None
+
     try:
-        text = raw.decode("utf-8", errors="replace")
+        text = raw.decode("utf-8-sig", errors="replace")
         reader = csv.reader(io.StringIO(text))
         rows = list(reader)
 
-        # Skip header rows until we hit the data section (look for a date-like cell)
         decisions = []
         for row in rows:
-            if not row:
+            if len(row) < 3:
                 continue
             cell = row[0].strip()
-            # Dates in RBA CSV are like "6-May-2026" or "06/05/2026"
             for fmt in ("%d-%b-%Y", "%d/%m/%Y", "%Y-%m-%d"):
                 try:
                     d = datetime.datetime.strptime(cell, fmt).date()
-                    rate = float(row[1].strip().replace("%", ""))
-                    decisions.append((d, rate))
-                    break
-                except (ValueError, IndexError):
+                except ValueError:
                     continue
+                rate = parse_rate_cell(row[2])
+                if rate is not None:
+                    decisions.append((d, rate))
+                break
 
         if not decisions:
             return None, {}
